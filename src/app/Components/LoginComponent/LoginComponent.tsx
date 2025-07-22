@@ -9,6 +9,7 @@ import { login } from '../../../store/userSlice';
 import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import type { IconProp } from '@fortawesome/fontawesome-svg-core';
 interface LoginCredentials {
   email: string;
   password: string;
@@ -82,7 +83,7 @@ function LoginComponent() {
               disabled={loading}
               className="bg-white/20 border p-4 border-white/30 h-12 rounded-2xl w-full text-white py-2 cursor-pointer hover:bg-[#00A0E8] font-bold text-xl transition-all duration-500"
             >
-              {loading ? <FontAwesomeIcon icon={faSpinner} spin className="mr-2" /> : "Sign In"}
+              {loading ? <FontAwesomeIcon icon={faSpinner as IconProp} spin className="mr-2" /> : "Sign In"}
             </button>
           </div>
           <div className="text-center">
