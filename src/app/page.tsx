@@ -1,9 +1,10 @@
-//our app component
-//default routing always search for page.tsx
+"use client";
+import { Provider } from 'react-redux'
+import { store } from '../store'
 export default function App() {
   return (
     <>
-      <p className="text-green-400">Hello, world!</p>
+      <p>Hello this is the / route</p>
     </>
   );
 }
