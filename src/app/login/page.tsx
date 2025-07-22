@@ -1,4 +1,4 @@
-import LoginComponent from '@/Components/LoginComponent/LoginComponent'
+import LoginComponent from '../Components/LoginComponent/LoginComponent'
 import React from 'react'
 
 function login() {
