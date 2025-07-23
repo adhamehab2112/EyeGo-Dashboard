@@ -36,8 +36,10 @@ function LoginComponent() {
         displayName: user.user.displayName,
         photoURL: user.user.photoURL
       };
+      const token = await user.user.getIdToken();
       dispatch(login(serializableUser));
-      router.push("/");
+      localStorage.setItem('userToken',token);
+      router.push("/dashboard");
     } catch (e: any) {
       console.error(e);
       setError("Error in email or password");
