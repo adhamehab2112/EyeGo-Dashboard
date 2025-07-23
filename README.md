@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Eyego Dashboard 
 
-## Getting Started
+A responsive, Firebase-authenticated admin dashboard built with **Next.js App Router**, **Tailwind CSS**, and **Redux Toolkit**. The system features user authentication, stats visualization, interactive charts, and a searchable table — all mobile-friendly and production-ready.
 
-First, run the development server:
+🔗 **Live Demo:** [https://eyego-dashboard-roan.vercel.app/login](https://eyego-dashboard-roan.vercel.app/login)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+🧪 **Test Credentials:**
+- **Email:** `admin@eyego.ai`
+- **Password:** `admin123`
+
+---
+
+##  Features
+
+-  Firebase Email/Password Authentication
+-  Dashboard with KPIs, charts, and user table
+-  Recharts for bar, line, and pie chart visualizations
+-  Tailwind CSS responsive UI
+-  Redux Toolkit for state management
+-  Route protection with layout-based guards
+-  Linted, typed, and Vercel-deployable
+
+---
+
+##  Folder Structure (App Router)
+
+```
+/src
+├── app
+│   ├── page.tsx                 # Entry point (login)
+│   ├── layout.tsx               # Global wrapper + ReduxProvider
+│   ├── login/                   # Login page route
+│   ├── dashboard/               # Protected dashboard route
+│   └── Components/             
+│       ├── AuthGuard/          # Route guard logic
+│       ├── DashBoardComponent/ # KPIs, charts
+│       ├── LoginComponent/     # Login form UI
+│       ├── ProviderWrapper/    # ReduxProvider
+│       └── UsersTable/         # User table with filters and pagination
+├── lib/                         # Firebase config
+├── store/                       # Redux setup
+├── assets/                      # Images, logos
+├── styles/                      # Global Tailwind setup
+└── _mockedData/                 # Sample user data
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+##  Getting Started
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Clone the repo:**
+```bash
+git clone https://github.com/your-username/eyego-dashboard.git
+cd eyego-dashboard
+```
 
-## Learn More
+2. **Install dependencies:**
+```bash
+npm install
+```
 
-To learn more about Next.js, take a look at the following resources:
+3. **Add Firebase config:**
+Create `.env.local` at the root:
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY=xxxxx
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=xxxxx
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=xxxxx
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=xxxxx
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=xxxxx
+NEXT_PUBLIC_FIREBASE_APP_ID=xxxxx
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. **Run locally:**
+```bash
+npm run dev
+```
+Visit: [http://localhost:3000](http://localhost:3000)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+##  Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Project is deployed on **Vercel**:  
+🔗 [https://eyego-dashboard-roan.vercel.app](https://eyego-dashboard-roan.vercel.app)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+---
+
+##  Notes
+
+- Uses App Router (`/app`) and server/client separation
+- Redux `Provider` wrapped in a client component
+- All routes are protected using `AuthGuard`
+- Modular architecture for scalability
+
+
