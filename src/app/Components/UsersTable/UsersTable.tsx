@@ -1,24 +1,36 @@
 import React, { useMemo, useState } from 'react'
 import { mockUsers } from '../../../_mockedData/mockedData'
-import { ChevronLeft, ChevronRight, Search, SortAsc, SortAscIcon, SortDesc } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Search, SortAsc, SortDesc } from 'lucide-react';
 
+interface User {
+    name: string;
+    email: string;
+    role: string;
+    status: string;
+    revenue: number;
+}
+
+interface SortIconProps {
+    field: keyof User;
+}
 
 
 
 function UsersTable() {
-    let [searchValue, setSearchValue] = useState("");
-    let [currentPage, setCurrentPage] = useState(1);
-    let itemsPerPage = 5;
-    let [sortField, setSortField] = useState('name');
-    let [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');;
-    let [filterRole, setFilterRole] = useState('all');
-    let [filterStatus, setFilterStatus] = useState('all');
-    let [searchTerm, setSearchTerm] = useState('');
-    const SortIcon = ({ field }: any) => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 5;
+    const [sortField, setSortField] = useState<keyof User>('name');
+    const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+    const [filterRole, setFilterRole] = useState('all');
+    const [filterStatus, setFilterStatus] = useState('all');
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const SortIcon = ({ field }: SortIconProps) => {
         if (sortField !== field) return null;
         return sortDirection === 'asc' ? <SortAsc className="h-4 w-4" /> : <SortDesc className="h-4 w-4" />;
     };
-    const handleSort = (field: string) => {
+
+    const handleSort = (field: keyof User) => {
         if (sortField === field) {
             setSortDirection(prev => (prev === 'asc' ? 'desc' : 'asc'));
         } else {
@@ -26,6 +38,7 @@ function UsersTable() {
             setSortDirection('asc');
         }
     };
+
     const filteredAndSortedData = useMemo(() => {
         let filtered = mockUsers.filter(item =>
             item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -40,7 +53,7 @@ function UsersTable() {
             filtered = filtered.filter(item => item.status === filterStatus);
         }
 
-        return filtered.sort((a: any, b: any) => {
+        return filtered.sort((a, b) => {
             const aValue = a[sortField];
             const bValue = b[sortField];
 
@@ -50,12 +63,14 @@ function UsersTable() {
                 return aValue < bValue ? 1 : -1;
             }
         });
-    }, [mockUsers, searchTerm, sortField, sortDirection, filterRole, filterStatus]);
-    let pagedData = useMemo(() => {
-        let startIndex = (currentPage - 1) * itemsPerPage;
+    }, [searchTerm, sortField, sortDirection, filterRole, filterStatus]);
+
+    const pagedData = useMemo(() => {
+        const startIndex = (currentPage - 1) * itemsPerPage;
         return filteredAndSortedData.slice(startIndex, startIndex + itemsPerPage);
-    }, [currentPage,filteredAndSortedData])
-    const totalPages = Math.ceil(mockUsers.length / itemsPerPage);
+    }, [currentPage, filteredAndSortedData, itemsPerPage]);
+
+    const totalPages = Math.ceil(filteredAndSortedData.length / itemsPerPage);
     return (
         <>
             <div className="bg-white rounded-xl shadow-sm border border-gray-200">

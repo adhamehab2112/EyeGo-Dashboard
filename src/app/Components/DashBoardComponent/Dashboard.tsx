@@ -32,7 +32,7 @@ import { useRouter } from 'next/navigation';
 
 function Dashboard() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    let router = useRouter();
+    const  router = useRouter();
     function handleLogout() {
         localStorage.removeItem('userToken');
         router.push('/login');

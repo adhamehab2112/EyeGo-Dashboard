@@ -14,6 +14,17 @@ interface LoginCredentials {
   email: string;
   password: string;
 }
+interface FirebaseError {
+  code: string;
+  message: string;
+}
+
+interface UserData {
+  uid: string;
+  email: string | null;
+  displayName: string | null;
+  photoURL: string | null;
+}
 
 function LoginComponent() {
   const dispatch = useDispatch();
@@ -30,7 +41,7 @@ function LoginComponent() {
     console.log(credentials);
     try {
       const user = await signInWithEmailAndPassword(auth, credentials.email, credentials.password);
-      const serializableUser = {
+      const serializableUser: UserData = {
         uid: user.user.uid,
         email: user.user.email,
         displayName: user.user.displayName,
@@ -38,12 +49,13 @@ function LoginComponent() {
       };
       const token = await user.user.getIdToken();
       dispatch(login(serializableUser));
-      localStorage.setItem('userToken',token);
+      localStorage.setItem('userToken', token);
       router.push("/dashboard");
-    } catch (e: any) {
-      console.error(e);
+    } catch (e: unknown) {
+      const error = e as FirebaseError;
+      console.error(error);
       setError("Error in email or password");
-    } finally {
+    }finally {
       setLoading(false);
     }
   }
